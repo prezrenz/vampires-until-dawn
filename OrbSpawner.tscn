@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Orb.tscn" type="PackedScene" id=1]
+[ext_resource path="res://OrbSpawner.gd" type="Script" id=2]
+
+[node name="OrbSpawner" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Orb" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 32 )
+rotation = 1.5708
+
+[node name="Orb2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -24, 24 )
+rotation = 2.35619
+
+[node name="Orb3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 24, 24 )
+rotation = 0.785398

@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="BatSpawner" type="Node2D"]
+
+[node name="Position1" type="Position2D" parent="."]
+position = Vector2( 32, 0 )
+
+[node name="Position2" type="Position2D" parent="."]
+position = Vector2( -24, 0 )
