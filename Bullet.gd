@@ -25,4 +25,4 @@ func _on_Bullet_body_entered(body):
 		queue_free()
 	elif body.name == "Vampire":
 		var direction = body.position.direction_to(position)
-		body.hurt(-direction)
+		body.damage(-direction)
