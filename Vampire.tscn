@@ -25,4 +25,8 @@ shape = SubResource( 1 )
 
 [node name="OrbSpawner" parent="." instance=ExtResource( 4 )]
 
+[node name="BatSpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="timeout" from="StateTimer" to="." method="_on_StateTimer_timeout"]
+[connection signal="timeout" from="BatSpawnTimer" to="." method="_on_BatSpawnTimer_timeout"]

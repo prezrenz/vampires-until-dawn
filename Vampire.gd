@@ -28,10 +28,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	process_state(delta)
-	velocity = move_and_slide(velocity)
-	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+func _process(delta):
+	if is_instance_valid(player):
+		process_state(delta)
+		velocity = move_and_slide(velocity)
+		knockback = lerp(knockback, Vector2.ZERO, 0.1)
 
 
 func initialize_state():
@@ -44,12 +45,15 @@ func initialize_state():
 			$StateTimer.wait_time = 15
 		state.SPAWN:
 			global_position = spawn_point.global_position
-			$StateTimer.wait_time = 10
+			$WorldCollider.set_deferred("disabled", true)
+			$StateTimer.wait_time = 5
+			$BatSpawnTimer.start()
 		state.STUN:
 			$StateTimer.wait_time = 5
 		state.ORB:
 			global_position = spawn_point.global_position
-			$StateTimer.wait_time = 2
+			$WorldCollider.set_deferred("disabled", true)
+			$StateTimer.wait_time = 1
 			
 
 
@@ -70,14 +74,13 @@ func process_state(delta):
 		state.CHASE:
 			velocity = position.direction_to(player.position) * speed * delta + knockback
 		state.SPAWN:
-			var bat_count = get_tree().get_nodes_in_group("bats").size()
-			if bat_count <= 0:
-				$BatSpawner.spawn(bats_to_spawn)
+			if $BatSpawnTimer.is_stopped():
+				$BatSpawnTimer.start()
 		state.STUN:
 			pass
 		state.ORB:
-			var has_orb_spawned = get_tree().get_nodes_in_group("orbs").empty()
-			if !has_orb_spawned:
+			var orb_count = get_tree().get_nodes_in_group("orbs").size()
+			if orb_count < 6:
 				$OrbSpawner.spawn()
 
 
@@ -96,8 +99,13 @@ func damage(direction):
 	
 	hits_taken += 1
 	knockback = direction * knockback_force
-	
 
 
 func _on_StateTimer_timeout():
 	set_new_state()
+
+
+func _on_BatSpawnTimer_timeout():
+	var bat_count = get_tree().get_nodes_in_group("bats").size()
+	if bat_count <= 0:
+		$BatSpawner.spawn(bats_to_spawn)

@@ -11,10 +11,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _process(delta):
 	var velocity = Vector2.ZERO
-	velocity = global_position.direction_to(player.global_position) * speed * delta
-	velocity = move_and_slide(velocity)
+	if is_instance_valid(player):
+		velocity = global_position.direction_to(player.global_position) * speed * delta
+		velocity = move_and_slide(velocity)
 
 
 func _on_DespawnTimer_timeout():

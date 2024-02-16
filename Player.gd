@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export (int) var max_health = 6
 export (int) var max_dodges = 3
-export (float) var default_dodge_regen = 1
+export (float) var default_dodge_regen = 1.0
 export (int) var max_ammo = 5
 export (int) var max_chamber = 5
 export (float) var default_reload_speed = 1.0
@@ -136,9 +136,9 @@ func _on_HitBox_body_entered(body):
 	if body.name == "Vampire":
 		var direction = body.position.direction_to(position)
 		damage(direction)
-		body.hurt(-direction)
+		body.damage(-direction)
 	
-	elif body.is_in_group("bats"):
+	elif body.is_in_group("bats") or body.is_in_group("orbs"):
 		var direction = body.position.direction_to(position)
 		damage(direction)
 		body.queue_free()

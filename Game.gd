@@ -1,14 +1,12 @@
 extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var vampire = preload("res://Vampire.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$StartWave.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,5 +15,15 @@ func _ready():
 
 
 func _on_StartWave_timeout():
-	# Replace with start wave function
-	pass
+	var new_vampire = vampire.instance()
+	new_vampire.global_position = $VampireSpawn.global_position
+	add_child(new_vampire)
+
+
+func _on_WaveTimer_timeout():
+	get_node("Vampire").queue_free()
+	$BreatheTimer.start()
+
+
+func _on_BreatheTimer_timeout():
+	$StartWave.start()

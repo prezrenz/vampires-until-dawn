@@ -17,9 +17,10 @@ func _ready():
 func spawn(count):
 	for i in range(count):
 		var new_bat = bat.instance()
+		get_parent().add_child(new_bat)
 		
 		var spawn_point = randi() % 2
-		var offset = Vector2(randi()%20, randi()%20)
+		var offset = Vector2(randi()%10, randi()%10)
 		
 		if spawn_point == 0:
 			new_bat.global_transform = $Position1.global_transform
@@ -28,4 +29,3 @@ func spawn(count):
 		
 		new_bat.global_position += offset
 		
-		get_parent().add_child(new_bat)
