@@ -152,12 +152,130 @@ one_shot = true
 autostart = true
 
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 60.0
 one_shot = true
 
 [node name="BreatheTimer" type="Timer" parent="."]
+wait_time = 15.0
 one_shot = true
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthLabel" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -42.0
+margin_right = 20.0
+margin_bottom = -28.0
+text = "S"
+
+[node name="AmmoLabel" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -14.0
+margin_right = 20.0
+text = "S"
+
+[node name="DodgeLabel" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -28.0
+margin_right = 20.0
+margin_bottom = -14.0
+text = "S"
+
+[node name="WaveStatus" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 14.0
+
+[node name="DeathScreen" type="PanelContainer" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.5
+margin_top = -20.0
+margin_right = 55.5
+margin_bottom = 20.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DeathScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 45.0
+
+[node name="Label" type="Label" parent="UI/DeathScreen/VBoxContainer"]
+margin_right = 111.0
+margin_bottom = 14.0
+text = "YOU DIED..."
+align = 1
+
+[node name="Button" type="Button" parent="UI/DeathScreen/VBoxContainer"]
+margin_top = 18.0
+margin_right = 111.0
+margin_bottom = 38.0
+text = "Return to Menu"
+
+[node name="WinScreen" type="PanelContainer" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -118.0
+margin_top = -49.0
+margin_right = 118.0
+margin_bottom = 49.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/WinScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 229.0
+margin_bottom = 106.0
+grow_horizontal = 2
+
+[node name="Label" type="RichTextLabel" parent="UI/WinScreen/VBoxContainer"]
+margin_right = 222.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 222, 0 )
+bbcode_enabled = true
+bbcode_text = "[center]THE SUN RISES,
+YOU SURVIVED...
+
+THANKS FOR PLAYING!
+Made By Prezrenz[/center]"
+text = "THE SUN RISES,
+YOU SURVIVED...
+
+THANKS FOR PLAYING!
+Made By Prezrenz"
+fit_content_height = true
+
+[node name="Button" type="Button" parent="UI/WinScreen/VBoxContainer"]
+margin_top = 79.0
+margin_right = 222.0
+margin_bottom = 99.0
+text = "Return to Menu"
+
+[connection signal="died" from="Player" to="." method="_on_Player_died"]
+[connection signal="update_ammo" from="Player" to="." method="_on_Player_update_ammo"]
+[connection signal="update_dodges" from="Player" to="." method="_on_Player_update_dodges"]
+[connection signal="update_health" from="Player" to="." method="_on_Player_update_health"]
 [connection signal="timeout" from="StartWave" to="." method="_on_StartWave_timeout"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="BreatheTimer" to="." method="_on_BreatheTimer_timeout"]
+[connection signal="button_up" from="UI/DeathScreen/VBoxContainer/Button" to="." method="_on_Button_button_up"]
+[connection signal="button_up" from="UI/WinScreen/VBoxContainer/Button" to="." method="_on_Button_button_up"]

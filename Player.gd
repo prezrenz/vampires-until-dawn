@@ -26,9 +26,17 @@ var knockback = Vector2.ZERO
 
 var can_fire = true
 
+signal update_health
+signal update_ammo
+signal update_dodges
+signal died
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	emit_signal("update_health", current_health, max_health)
+	emit_signal("update_dodges", current_dodges, max_dodges)
+	emit_signal("update_ammo", current_chamber, current_ammo)
 	$DodgeRecoverTimer.wait_time = default_dodge_regen
 
 
@@ -77,6 +85,7 @@ func fire():
 	
 	current_chamber -= 1
 	$Gun.fire()
+	emit_signal("update_ammo", current_chamber, current_ammo)
 
 
 func reload():
@@ -93,6 +102,7 @@ func reload():
 	can_fire = false
 	$ReloadTimer.wait_time = default_reload_speed
 	$ReloadTimer.start()
+	emit_signal("update_ammo", current_chamber, current_ammo)
 
 
 func dodge():
@@ -103,19 +113,22 @@ func dodge():
 	speed = dodge_speed
 	$HitBox.set_monitoring(false)
 	$DodgeTimer.start()
+	emit_signal("update_dodges", current_dodges, max_dodges)
 
 
 func die():
 	queue_free() # what happens?
+	emit_signal("died")
 
 
 func damage(direction):
+	current_health -= 1
 	if current_health <= 0:
 		die()
 		return
 	
-	current_health -= 1
 	knockback = direction * knockback_force
+	emit_signal("update_health", current_health, max_health)
 
 
 func _on_ReloadTimer_timeout():
@@ -130,6 +143,7 @@ func _on_DodgeTimer_timeout():
 func _on_DodgeRecoverTimer_timeout():
 	if current_dodges < max_dodges:
 		current_dodges += 1
+		emit_signal("update_dodges", current_dodges, max_dodges)
 
 
 func _on_HitBox_body_entered(body):

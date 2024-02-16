@@ -1,3 +1,5 @@
+game size: 304x368
+
 Player:
 - has dodge (3 start, regenerate every 0.6 seconds)
 - has gun (5 chamber, 5 max ammo, 1 second reload time, 0.6 gun cooldown(?))
