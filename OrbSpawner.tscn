@@ -17,3 +17,15 @@ rotation = 2.35619
 [node name="Orb3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 24, 24 )
 rotation = 0.785398
+
+[node name="Position1" type="Position2D" parent="."]
+position = Vector2( 0, 32 )
+rotation = 1.5708
+
+[node name="Position2" type="Position2D" parent="."]
+position = Vector2( -24, 24 )
+rotation = 2.35619
+
+[node name="Position3" type="Position2D" parent="."]
+position = Vector2( 24, 24 )
+rotation = 0.785398

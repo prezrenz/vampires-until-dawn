@@ -17,5 +17,5 @@ func _ready():
 
 
 func _on_StartWave_timeout():
-	# Replace with star wave function
+	# Replace with start wave function
 	pass

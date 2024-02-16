@@ -31,5 +31,4 @@ func change_direction():
 func fire():
 	var new_bullet = bullet.instance()
 	new_bullet.global_transform = $Position2D.global_transform
-	print(owner)
 	owner.owner.add_child(new_bullet)
