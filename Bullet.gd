@@ -21,3 +21,8 @@ func _on_DespawnTimer_timeout():
 func _on_Bullet_body_entered(body):
 	if body is TileMap:
 		queue_free()
+	elif body.is_in_group("bats"):
+		queue_free()
+	elif body.name == "Vampire":
+		var direction = body.position.direction_to(position)
+		body.hurt(-direction)

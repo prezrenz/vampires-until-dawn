@@ -4,8 +4,10 @@ extends KinematicBody2D
 enum state {IDLE, CHASE, SPAWN, ORB, STUN}
 
 export (int) var speed = 4600
-export (int) var hits_to_stun = 3
+export (int) var hits_to_stun = 6
 export (int) var bats_to_spawn = 10
+
+export (int) var knockback_force = 200
 
 onready var player = get_tree().get_nodes_in_group("player")[0]
 
