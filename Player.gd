@@ -10,6 +10,7 @@ export (float) var default_reload_speed = 1.0
 
 export (int) var default_speed = 4000
 export (int) var dodge_speed = 12000
+export (int) var knockback_force = 500
 
 onready var current_health = max_health
 onready var current_dodges = max_dodges
@@ -35,6 +36,7 @@ func _ready():
 func _physics_process(delta):
 	get_input(delta)
 	velocity = move_and_slide(velocity)
+	knockback = lerp(knockback, Vector2.ZERO, 0.1)
 	change_direction()
 
 
@@ -103,6 +105,19 @@ func dodge():
 	$DodgeTimer.start()
 
 
+func die():
+	queue_free() # what happens?
+
+
+func damage(direction):
+	if current_health <= 0:
+		die()
+		return
+	
+	current_health -= 1
+	knockback = direction * knockback_force
+
+
 func _on_ReloadTimer_timeout():
 	can_fire = true # play sound, update ui
 
@@ -115,3 +130,15 @@ func _on_DodgeTimer_timeout():
 func _on_DodgeRecoverTimer_timeout():
 	if current_dodges < max_dodges:
 		current_dodges += 1
+
+
+func _on_HitBox_body_entered(body):
+	if body.name == "Vampire":
+		var direction = body.position.direction_to(position)
+		damage(direction)
+		body.hurt(-direction)
+	
+	elif body.is_in_group("bats"):
+		var direction = body.position.direction_to(position)
+		damage(direction)
+		body.queue_free()

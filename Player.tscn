@@ -45,6 +45,7 @@ one_shot = true
 [node name="DodgeRecoverTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_DodgeTimer_timeout"]
 [connection signal="timeout" from="DodgeRecoverTimer" to="." method="_on_DodgeRecoverTimer_timeout"]
