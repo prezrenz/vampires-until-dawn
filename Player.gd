@@ -147,6 +147,7 @@ func _on_DodgeRecoverTimer_timeout():
 
 
 func _on_HitBox_body_entered(body):
+	print(body)
 	if body.name == "Vampire":
 		var direction = body.position.direction_to(position)
 		damage(direction)
@@ -155,4 +156,9 @@ func _on_HitBox_body_entered(body):
 	elif body.is_in_group("bats") or body.is_in_group("orbs"):
 		var direction = body.position.direction_to(position)
 		damage(direction)
+		body.queue_free()
+	
+	elif body.is_in_group("ammo"):
+		current_ammo += body.amount
+		emit_signal("update_ammo", current_chamber, current_ammo)
 		body.queue_free()

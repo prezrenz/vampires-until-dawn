@@ -2,6 +2,7 @@ extends Node2D
 
 
 onready var vampire = preload("res://Vampire.tscn")
+onready var ammo = preload("res://Ammo.tscn")
 var current_wave = 0
 
 
@@ -14,6 +15,18 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func spawn_ammo():
+	var centerpos = $AmmoSpawnArea.position
+	var size = $AmmoSpawnArea/CollisionShape2D.shape.extents
+	
+	var random_pos = Vector2(0, 0)
+	random_pos.x = (randi() % int(size.x)) - (size.x/2) + centerpos.x
+	random_pos.y = (randi() % int(size.y)) - (size.y/2) + centerpos.y
+	var new_ammo = ammo.instance()
+	new_ammo.position = random_pos
+	add_child(new_ammo)
 
 
 func _on_StartWave_timeout():
@@ -37,6 +50,7 @@ func _on_WaveTimer_timeout():
 	
 	if current_wave == 3:
 		$UI/WinScreen.visible = true
+		$AmmoSpawnTimer.stop()
 		$UI/WaveStatus.text = "THE END..."
 	
 	$BreatheTimer.start()
@@ -69,3 +83,10 @@ func _on_Player_died():
 
 func _on_Button_button_up():
 	get_tree().change_scene("res://ui/MainMenu.tscn")
+
+
+func _on_AmmoSpawnTimer_timeout():
+	var to_spawn = randi() % 2
+	
+	if to_spawn == 1:
+		spawn_ammo()
