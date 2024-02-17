@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-export (int) var speed = 200
+export (int) var speed = 100
 var velocity = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
@@ -16,8 +16,8 @@ func _physics_process(delta):
 	if collision_info:
 		velocity = velocity.bounce(collision_info.normal)
 		rotation = velocity.angle()
-		velocity.x *= 0.9
-		velocity.y *= 0.9
+		velocity.x *= 0.5
+		velocity.y *= 0.5
 
 
 func _on_DespawnTimer_timeout():
