@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/GWJ-Full-Logo-tag-4k.png" type="Texture" id=2]
+[ext_resource path="res://assets/then-the-morning-comes.png" type="Texture" id=3]
+[ext_resource path="res://assets/inside-box.png" type="Texture" id=4]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -20,20 +23,58 @@ text = "VAMPIRE: UNTIL DAWN"
 [node name="PlayButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -32.0
-margin_top = 104.0
-margin_right = 32.0
-margin_bottom = 124.0
+margin_left = -96.0
+margin_top = 64.0
+margin_right = -32.0
+margin_bottom = 84.0
 text = "PLAY"
 
 [node name="QuitButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -32.0
-margin_top = 152.0
-margin_right = 32.0
-margin_bottom = 172.0
+margin_left = 32.0
+margin_top = 64.0
+margin_right = 96.0
+margin_bottom = 84.0
 text = "Quit"
+
+[node name="JamLogo" type="TextureRect" parent="."]
+margin_left = 80.0
+margin_top = 120.0
+margin_right = 4080.0
+margin_bottom = 2370.0
+rect_scale = Vector2( 0.04, 0.04 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -52.0
+margin_top = 23.0
+margin_right = 52.0
+margin_bottom = 37.0
+bbcode_enabled = true
+bbcode_text = "[color=#FA6149][center]MADE FOR[/center][/color]"
+text = "MADE FOR"
+scroll_active = false
+
+[node name="Wildcard1" type="TextureRect" parent="."]
+margin_left = 8.0
+margin_top = 96.0
+margin_right = 728.0
+margin_bottom = 1104.0
+rect_scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 3 )
+
+[node name="Wildcard2" type="TextureRect" parent="."]
+margin_left = 256.0
+margin_top = 96.0
+margin_right = 976.0
+margin_bottom = 1104.0
+rect_scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 4 )
 
 [connection signal="button_up" from="PlayButton" to="." method="_on_PlayButton_button_up"]
 [connection signal="button_up" from="QuitButton" to="." method="_on_QuitButton_button_up"]
