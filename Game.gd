@@ -46,6 +46,7 @@ func _on_StartWave_timeout():
 
 
 func _on_WaveTimer_timeout():
+	$VampireRetreat.play()
 	get_node("Vampire").queue_free()
 	
 	if current_wave == 3:
@@ -82,6 +83,7 @@ func _on_Player_died():
 
 
 func _on_Button_button_up():
+	$Select.play()
 	get_tree().change_scene("res://ui/MainMenu.tscn")
 
 

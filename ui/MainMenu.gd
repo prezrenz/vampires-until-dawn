@@ -18,8 +18,20 @@ func _ready():
 
 
 func _on_PlayButton_button_up():
+	$Select.play()
 	get_tree().change_scene("res://Game.tscn")
 
 
 func _on_QuitButton_button_up():
+	$Select.play()
 	get_tree().quit(0)
+
+
+func _on_HelpButton_button_up():
+	$Select.play()
+	$HelpPanel.visible = true
+
+
+func _on_CloseHelpButton_button_up():
+	$Select.play()
+	$HelpPanel.visible = false

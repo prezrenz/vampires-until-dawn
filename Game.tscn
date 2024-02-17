@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/tileset.png" type="Texture" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://assets/sounds/die_vampire.wav" type="AudioStream" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 32, 0, 32, 8, 0, 8, 0, 0 )
@@ -285,6 +286,11 @@ margin_top = 79.0
 margin_right = 222.0
 margin_bottom = 99.0
 text = "Return to Menu"
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+
+[node name="VampireRetreat" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="update_ammo" from="Player" to="." method="_on_Player_update_ammo"]

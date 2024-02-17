@@ -85,6 +85,7 @@ func fire():
 	
 	current_chamber -= 1
 	$Gun.fire()
+	$Fire.play()
 	emit_signal("update_ammo", current_chamber, current_ammo)
 
 
@@ -102,6 +103,7 @@ func reload():
 	can_fire = false
 	$ReloadTimer.wait_time = default_reload_speed
 	$ReloadTimer.start()
+	$Pickup.play()
 	emit_signal("update_ammo", current_chamber, current_ammo)
 
 
@@ -113,11 +115,13 @@ func dodge():
 	speed = dodge_speed
 	$HitBox.set_monitoring(false)
 	$DodgeTimer.start()
+	$Dodge.play()
 	emit_signal("update_dodges", current_dodges, max_dodges)
 
 
 func die():
-	queue_free() # what happens?
+	queue_free()
+	$Die.play()
 	emit_signal("died")
 
 
@@ -128,6 +132,7 @@ func damage(direction):
 		return
 	
 	knockback = direction * knockback_force
+	$Hurt.play()
 	emit_signal("update_health", current_health, max_health)
 
 
@@ -147,7 +152,6 @@ func _on_DodgeRecoverTimer_timeout():
 
 
 func _on_HitBox_body_entered(body):
-	print(body)
 	if body.name == "Vampire":
 		var direction = body.position.direction_to(position)
 		damage(direction)
@@ -162,3 +166,4 @@ func _on_HitBox_body_entered(body):
 		current_ammo += body.amount
 		emit_signal("update_ammo", current_chamber, current_ammo)
 		body.queue_free()
+		$Pickup.play()

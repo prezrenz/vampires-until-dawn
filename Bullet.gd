@@ -23,7 +23,9 @@ func _on_Bullet_body_entered(body):
 #		queue_free()
 	if body.is_in_group("bats"):
 		body.queue_free()
+		$Hurt.play()
 	elif body.name == "Vampire":
 		var direction = body.position.direction_to(position)
 		body.damage(-direction)
+		$Hurt.play()
 	queue_free()

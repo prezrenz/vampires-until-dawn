@@ -13,7 +13,6 @@ export (int) var knockback_force = 200
 onready var player = get_tree().get_nodes_in_group("player")[0]
 onready var spawn_point = get_parent().get_node("VampireSpawn")
 
-
 var hits_taken = 0
 
 var knockback = Vector2.ZERO
