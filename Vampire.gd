@@ -39,7 +39,7 @@ func initialize_state():
 	match current_state:
 		state.IDLE:
 			global_position = spawn_point.global_position
-			$StateTimer.wait_time = 1
+			$StateTimer.wait_time = 0.1
 		state.CHASE:
 			$StateTimer.wait_time = 15
 		state.SPAWN:
